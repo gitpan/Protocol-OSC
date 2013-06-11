@@ -1,0 +1,122 @@
+=encoding utf8
+
+=head1 NAME
+
+Protocol::OSC - Open Sound Control v1.1 implementation
+
+=head1 SYNOPSIS
+
+    my $osc = Protocol::OSC->new;
+    my $data = $osc->message(qw(/echo isf 3 ping 3.14)); # pack
+    my $packet = $osc->parse($data); # parse
+
+    $osc->actions->{$path} = $code_ref; # add callback
+    $packet->process($data, $scheduler_coderef); # parse and execute callbacks
+
+=head1 DESCRIPTION
+
+This module implements (de)coding and processing of OSC packets according the specification. It's pure Perl implementation, yet faster
+than L<Net::LibLO> (~4x) and L<Net::OpenSoundControl> (~2x). Also it provides connection agnostic interface and
+path matching and type tagging according OSC specification L<http://opensoundcontrol.org/spec-1_0> / L<http://opensoundcontrol.org/spec-1_1>
+
+=head1 CONSTRUCTOR
+
+=head2 new(?actions => {})
+
+Creates Protocol::Instance with optional C<actions> argument which is hashref of pairs: C<< path => coderef >>
+
+=head1 METHODS
+
+=head2 message($path, $typetag, ?@args)
+
+Makes OSC message. Typetag supports these OSC-types: C<ifstdbht>. Everything else (like C<TFNI>) will not affect packing of C<@args>.
+
+=head2 bundle(undef || $unix_time, [@message || @bundle], ...)
+
+Makes OSC bundle. Pack several OSC messages/bundles to one bundle.
+
+=head2 parse($data)
+
+Parses OSC packet. Returns OSC message/bundle. 
+OSC-message is a blessed arrayref C<[$path, $type, @args]> with corresponding methods C<path>, C<type>, C<args>.
+OSC-bundle is a blessed arrayref C<[$time, @packets]> with corresponding methods C<time>, C<packets>
+
+=head2 process($data, ?$scheduler_cb)
+
+Parses OSC packet and process messages in it. Will call all matched actions throught C<$scheduler_cb>
+
+=head2 actions
+
+Returns hashref of actions: C<< path => coderef >> pairs. One could modify this hashref.
+
+=head2 match($osc_path_pattern)
+
+Returns mathched actions in form of list of arrayrefs C<[$path, $coderef]>
+
+=head2 time2tag($unix_time)
+
+Converts (fractional) unix epoch time to NTP timestamp, which is list of C<($seconds_since_1900_01_01, $int32_fraction_parts_of_second)>.
+If C<$unix_time> is undef then (0,1) is returned which means immediate execution by OSC specs.
+
+=head2 tag2time($ntp_time, $fraction_of_sec)
+
+Reverse of previous. 
+
+=head2 to_stream($data)
+
+Packs raw OSC data for (tcp) streaming.
+
+=head2 from_steam($buf)
+
+Returns list of raw OSC data packets in C<$buf> from stream buffer and residue of buffer.
+
+=head1 EXAMPLES
+
+=head2 Sending
+
+Send via UDP
+
+    my $udp = IO::Socket::INET->new( PeerAddr => 'localhost', PeerPort => '57120', Proto => 'udp', Type => SOCK_DGRAM) || die $!;
+    $udp->send($data);
+
+Send via TCP
+
+    my $tcp = IO::Socket::INET->new( PeerAddr => 'localhost', PeerPort => '57120', Proto => 'tcp', Type => SOCK_STREAM) || die $!;
+    $tcp->send($osc->to_stream($data));
+
+=head2 Receiving
+
+
+
+=head1 BENCHMARKS
+
+
+
+=head1 SUPPORT
+
+=over
+
+=item * GitHub
+ 
+L<http://github.com/vividsnow/Protocol-OSC>
+ 
+=item * Search MetaCPAN
+ 
+L<https://metacpan.org/module/Protocol::OSC>
+ 
+=back
+ 
+=head1 AUTHOR
+ 
+Yegor Korablev <egor@cpan.org>
+ 
+=head1 LICENSE
+ 
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+ 
+=head1 SEE ALSO
+ 
+L<Net::LibLO>, L<Net::OpenSoundControl>
+
+=cut

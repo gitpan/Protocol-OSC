@@ -1,0 +1,10 @@
+use strict;
+use Test::More;
+use IO::Socket;
+
+BEGIN { use_ok 'Protocol::OSC' }
+my $p = Protocol::OSC->new;
+
+
+
+done_testing;
