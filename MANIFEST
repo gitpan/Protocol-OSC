@@ -5,8 +5,5 @@ Makefile.PL
 README
 dist.ini
 lib/Protocol/OSC.pm
-lib/Protocol/OSC.pm~
 lib/Protocol/OSC.pod
-lib/Protocol/OSC.pod~
 t/use.t
-t/use.t~
