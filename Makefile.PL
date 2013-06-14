@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+use 5.010;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -29,9 +29,10 @@ my %WriteMakefileArgs = (
     "IO::Socket::INET" => 0,
     "Net::EmptyPort" => 0,
     "Test::More" => 0,
+    "Test::TCP" => 0,
     "Time::HiRes" => 0
   },
-  "VERSION" => "0.01",
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/*.t"
   }

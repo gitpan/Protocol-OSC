@@ -6,6 +6,7 @@ build_requires:
   IO::Socket::INET: 0
   Net::EmptyPort: 0
   Test::More: 0
+  Test::TCP: 0
   Time::HiRes: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
@@ -19,6 +20,7 @@ name: Protocol-OSC
 requires:
   Scalar::Util: 0
   constant: 0
+  perl: 5.010
   strict: 0
   warnings: 0
-version: 0.01
+version: 0.02
