@@ -8,3 +8,4 @@ dist.ini
 lib/Protocol/OSC.pm
 lib/Protocol/OSC.pod
 t/use.t
+xt/network.t

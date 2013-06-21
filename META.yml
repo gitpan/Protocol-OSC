@@ -3,10 +3,7 @@ abstract: 'Open Sound Control v1.1 protocol implementation'
 author:
   - 'Yegor Korablev <egor@cpan.org>'
 build_requires:
-  IO::Socket::INET: 0
-  Net::EmptyPort: 0
   Test::More: 0
-  Test::TCP: 0
   Time::HiRes: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
@@ -23,4 +20,4 @@ requires:
   perl: 5.010
   strict: 0
   warnings: 0
-version: 0.02
+version: 0.03
