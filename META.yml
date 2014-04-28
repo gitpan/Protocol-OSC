@@ -3,21 +3,21 @@ abstract: 'Open Sound Control v1.1 protocol implementation'
 author:
   - 'Yegor Korablev <egor@cpan.org>'
 build_requires:
-  Test::More: 0
-  Time::HiRes: 0
+  Test::More: '0'
+  Time::HiRes: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
+  ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.141170'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Protocol-OSC
 requires:
-  Scalar::Util: 0
-  constant: 0
-  perl: 5.010
-  strict: 0
-  warnings: 0
-version: 0.03
+  Scalar::Util: '0'
+  constant: '0'
+  perl: '5.010'
+  strict: '0'
+  warnings: '0'
+version: '0.04'
